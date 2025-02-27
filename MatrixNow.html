@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Matrix rain animation effect">
+    <title>Matrix Rain</title>
+    <style>
+        
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #000;
+            color: #0f0; 
+            font-family: monospace;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .rain-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .drop {
+            position: absolute;
+            top: -50px;
+            opacity: 0;
+            animation: fall linear infinite;
+            white-space: pre;
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="rain-container"></div>
+
+<script>
+    const container = document.querySelector('.rain-container');
+    const characters = "₿"; 
+    function createDrop() {
+
+        const drop = document.createElement('div');
+        drop.className = 'drop';
+        drop.innerText = characters.charAt(Math.floor(Math.random() * characters.length));
+        
+        drop.style.left = `${Math.random() * 100}vw`;
+        drop.style.fontSize = `${Math.random() * 1.5 + 0.5}em`;
+        drop.style.animationDuration = `${Math.random() * 3 + 2}s`;
+        
+        container.appendChild(drop);
+        drop.addEventListener('animationend', () => {
+            drop.remove();
+        });
+    
+    }
+    setInterval(createDrop, 50);
+</script>
+
+</body>
+</html>
